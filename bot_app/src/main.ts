@@ -8,11 +8,8 @@ async function bootstrap() {
       'https://telegram-weather-bot-roan.vercel.app',
       'telegram-weather-dj0onqezh-johntharians-projects.vercel.app',
       'https://telegram-weather-bot-johntharians-projects.vercel.app',
-<<<<<<< HEAD
       'https://telegram-frontend.vercel.app',
       'https://bot-client-rho.vercel.app',
-=======
->>>>>>> 0610aab56ed0f9e707fba03583bf278917167a30
     ],
   });
 

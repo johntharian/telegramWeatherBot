@@ -17,11 +17,7 @@ const ManageUsers = () => {
 
   useEffect(() => {
     axios
-<<<<<<< HEAD
       .get("https://botserver-production.up.railway.app/user")
-=======
-      .get("https://telegram-weather-bot-bntq.vercel.app/user")
->>>>>>> 0610aab56ed0f9e707fba03583bf278917167a30
       .then((res) => {
         console.log(res.data);
         setUsers(res.data);
@@ -32,18 +28,12 @@ const ManageUsers = () => {
   }, []);
 
   const changeStatus = async (chatId, status) => {
-<<<<<<< HEAD
     const res = await axios.put(
       `https://botserver-production.up.railway.app/user/${chatId}`,
       {
         status: status,
       }
     );
-=======
-    const res = await axios.put(`https://telegram-weather-bot-bntq.vercel.app/user/${chatId}`, {
-      status: status,
-    });
->>>>>>> 0610aab56ed0f9e707fba03583bf278917167a30
     console.log(res);
     window.alert(`User ${status}`);
 
@@ -58,13 +48,9 @@ const ManageUsers = () => {
   };
 
   const deleteUser = async (chatId) => {
-<<<<<<< HEAD
     const res = await axios.delete(
       `https://botserver-production.up.railway.app/user/${chatId}`
     );
-=======
-    const res = await axios.delete(`https://telegram-weather-bot-bntq.vercel.app/user/${chatId}`);
->>>>>>> 0610aab56ed0f9e707fba03583bf278917167a30
     console.log(res);
     window.alert("User deleted");
 
