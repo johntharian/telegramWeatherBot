@@ -63,7 +63,7 @@ getTelegramBotToken().then((token) => {
     if (messageText === "/subscribe") {
       bot.sendMessage(
         chatId,
-        "subscribed to weather bot \nweather upadted will be send once a day"
+        "subscribed to weather bot \nweather updated will be send once a day"
       );
 
       const firstName = msg.chat.first_name;
