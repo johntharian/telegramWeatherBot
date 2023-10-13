@@ -1,11 +1,26 @@
 import { useState, useEffect } from "react";
-
+import { Container, Typography, Button, Paper } from "@mui/material";
 import jwt_decode from "jwt-decode";
 import { Link, Navigate } from "react-router-dom";
 
 import Login from "./Login";
 import LogoutButton from "./Logout";
 
+const styles = {
+  body: {
+    background: '#f2f2f2', // Set your preferred background color here
+    margin: 0, // Remove any default margin to fill the entire viewport
+    minHeight: '100vh', // Makes sure the page fills the entire viewport height
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  paper: {
+    padding: '16px',
+    textAlign: 'center',
+  },
+};
 const Home = () => {
   const [credentialResponse, setCredentialResponse] = useState(null);
   const [user, setUser] = useState(null);
@@ -24,20 +39,28 @@ const Home = () => {
   }
 
   return (
-    <>
+    <div style={styles.body}>
       {user === null ? (
         <div>
-          <p>Welcome to bot admin panel. Please login to continue.</p>
-          <Login setCredentialResponse={setCredentialResponse} />
+          <Container maxWidth="sm">
+            <Paper elevation={3} style={styles.paper}>
+              <Typography variant="h4" gutterBottom>
+                Welcome to Weather Bot Admin Panel
+              </Typography>
+              <Typography variant="subtitle1">
+                Please login to access the dashboard.
+              </Typography>
+              <Login setCredentialResponse={setCredentialResponse} />
+            </Paper>
+          </Container>
         </div>
       ) : (
         <div>
-          <p>User logged in</p>
-          <LogoutButton />
-          <Navigate to="/dashboard" /> {/* Redirect to another page */}
+          {localStorage.setItem('user', user)}
+          <Navigate to="/dashboard" />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

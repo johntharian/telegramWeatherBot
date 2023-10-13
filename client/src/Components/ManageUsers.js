@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardActions,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+  Button,
+  Divider,
+} from "@mui/material";
 import axios from "axios";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
-  const [status, setStatus] = useState("");
-  const [chatId, setchatId] = useState("");
 
   useEffect(() => {
     axios
@@ -14,38 +23,94 @@ const ManageUsers = () => {
         setUsers(res.data);
       })
       .catch((err) => {
-        console.log("error fetching users", err);
+        console.error("Error fetching users", err);
       });
   }, []);
 
-  const changeStatus = async(chatId) =>{
-    const res = await axios.put(`http://localhost:8000/user/${chatId}`,{status:"blocked"})
-    console.log(res)
-    alert('user blocked');
-  }
+  const changeStatus = async (chatId, status) => {
+    const res = await axios.put(`http://localhost:8000/user/${chatId}`, {
+      status: status,
+    });
+    console.log(res);
+    window.alert(`User ${status}`);
 
-  const deleteUser = async(chatId) =>{
-    const res = await axios.delete(`http://localhost:8000/user/${chatId}`)
-    console.log(res)
-    alert('user deleted');
+    setUsers((prevUsers) =>
+      prevUsers.map((user) => {
+        if (user.chatId === chatId) {
+          return { ...user, status: status };
+        }
+        return user;
+      })
+    );
+  };
+
+  const deleteUser = async (chatId) => {
+    const res = await axios.delete(`http://localhost:8000/user/${chatId}`);
+    console.log(res);
+    window.alert("User deleted");
 
     setUsers((prevUsers) => prevUsers.filter((user) => user.chatId !== chatId));
-  }
+  };
 
   return (
     <div>
       {users.length > 0 ? (
-        <ul>
-          {users.map((user) => (
-            <li key={user.chatId}>
-              {user.firstName} - {user.status}
-              <button onClick={() => changeStatus(user.chatId)}>Change Status</button>
-              <button onClick={() => deleteUser(user.chatId)}>deleteUser</button>
-            </li>
-          ))}
-        </ul>
+        users.map((user, index) => (
+          <div key={user.chatId}>
+            <Card>
+              <CardContent>
+                <List>
+                  <ListItem
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle1"
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      {"Name: "} {user.firstName} {"Status: "}
+                      {user.status}
+                    </Typography>
+                  </ListItem>
+                </List>
+              </CardContent>
+              <Divider />
+              <CardActions>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => changeStatus(user.chatId, "Active")}
+                >
+                  Activate User
+                </Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => changeStatus(user.chatId, "Blocked")}
+                >
+                  Block User
+                </Button>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => deleteUser(user.chatId)}
+                >
+                  Delete User
+                </Button>
+              </CardActions>
+            </Card>
+            <br />
+          </div>
+        ))
       ) : (
-        <p>No users</p>
+        <Typography variant="subtitle1">No Subscribers</Typography>
       )}
     </div>
   );

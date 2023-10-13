@@ -1,16 +1,14 @@
 const axios = require("axios");
 const TelegramBot = require("node-telegram-bot-api");
 
-// const token = "6551715931:AAGkjVWYEccdjTyF7e3JH4PqpVAQJb_LmOo"
-
 // const token = await axios.get('http://localhost:8000/bot');
 
-const server_url = "http://localhost:8000"
+const server_url = "http://localhost:8000";
 
 const getTelegramBotToken = async () => {
   try {
     const response = await axios.get(`${server_url}/bot`);
-    return response.data[0].token // Assuming 'response.data' contains the token.
+    return response.data[0].token; // Assuming 'response.data' contains the token.
   } catch (error) {
     console.error("Error fetching Telegram bot token:", error);
     return null;
@@ -18,7 +16,7 @@ const getTelegramBotToken = async () => {
 };
 
 getTelegramBotToken().then((token) => {
-    console.log(token)
+  console.log(token);
   const bot = new TelegramBot(token, { polling: true });
   const openWeatherMapApiKey = "049098873d6c48b04c84bd92026f8116";
 
@@ -33,7 +31,16 @@ getTelegramBotToken().then((token) => {
       const users = response.data; // Assuming the data is an array of users
 
       for (const user of users) {
-        subscribers.add([user.chatId,user.status]);
+        // subscribers.add([user.chatId, user.status]);
+        const pair = [user.chatId, user.status];
+        if (
+          ![...subscribers].some(
+            (existingPair) =>
+              existingPair[0] === pair[0] && existingPair[1] === pair[1]
+          )
+        ) {
+          subscribers.add(pair);
+        }
       }
 
       console.log("Subscribers:", subscribers);
@@ -54,7 +61,6 @@ getTelegramBotToken().then((token) => {
     }
 
     if (messageText === "/subscribe") {
-      subscribers.add(chatId);
       bot.sendMessage(
         chatId,
         "subscribed to weather bot \nweather upadted will be send once a day"
@@ -75,6 +81,10 @@ getTelegramBotToken().then((token) => {
             "Data sent successfully to localhost:3000",
             response.data
           );
+
+          if (response.data === "User added successfully") {
+            subscribers.add([chatId, "Active"]);
+          }
         })
         .catch((error) => {
           console.error("Error sending data:", error);
@@ -97,31 +107,33 @@ getTelegramBotToken().then((token) => {
 
   setInterval(() => {
     var weatherUpdate = "Today's weather: Sunny and 25°C. Enjoy your day!";
+    console.log("here",subscribers)
     for (const user of subscribers) {
-        if (user[1] === "Active"){
-            var chatId = user[0]
-            axios
-              .get(
-                `http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=${openWeatherMapApiKey}`
-              )
-              .then((response) => {
-                const weatherDescription =
-                  response.data.list[0].weather[0].description;
-                // const weatherDescription = response.data.daily.weather[0].description;
-                // const temperature = response.data.main.temp;
-                weatherUpdate = `Today\'s weather: ${weatherDescription}. Enjoy your day!`;
-                console.log("weather update send to", chatId);
-                bot.sendMessage(chatId, weatherUpdate);
-              })
-              .catch((error) => {
-                console.error("Error fetching weather data:", error);
-                bot.sendMessage(chatId, weatherUpdate);
-              });
-          }
-      
-          subscribers = new Set()
-          getSubscriber()
-        }
+      console.log("user",user)
+      if (user[1] === "Active") {
+        var chatId = user[0];
+        console.log("hey",chatId)
+        axios
+          .get(
+            `http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=${openWeatherMapApiKey}`
+          )
+          .then((response) => {
+            const weatherDescription =
+              response.data.list[0].weather[0].description;
+            // const weatherDescription = response.data.daily.weather[0].description;
+            // const temperature = response.data.main.temp;
+            weatherUpdate = `Today\'s weather: ${weatherDescription}. Enjoy your day!`;
+            console.log("weather update send to", chatId);
+            bot.sendMessage(chatId, weatherUpdate);
+          })
+          .catch((error) => {
+            console.error("Error fetching weather data:", error);
+            bot.sendMessage(chatId, weatherUpdate);
+          });
+      }
 
-  }, 60 * 1000);
+    }
+    subscribers = new Set();
+    getSubscriber();
+  }, 60 * 100);
 });
