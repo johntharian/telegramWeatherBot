@@ -17,7 +17,7 @@ const ManageUsers = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/user")
+      .get("https://telegram-weather-bot-bntq.vercel.app/user")
       .then((res) => {
         console.log(res.data);
         setUsers(res.data);
@@ -28,7 +28,7 @@ const ManageUsers = () => {
   }, []);
 
   const changeStatus = async (chatId, status) => {
-    const res = await axios.put(`http://localhost:8000/user/${chatId}`, {
+    const res = await axios.put(`https://telegram-weather-bot-bntq.vercel.app/user/${chatId}`, {
       status: status,
     });
     console.log(res);
@@ -45,7 +45,7 @@ const ManageUsers = () => {
   };
 
   const deleteUser = async (chatId) => {
-    const res = await axios.delete(`http://localhost:8000/user/${chatId}`);
+    const res = await axios.delete(`https://telegram-weather-bot-bntq.vercel.app/user/${chatId}`);
     console.log(res);
     window.alert("User deleted");
 

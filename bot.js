@@ -3,7 +3,7 @@ const TelegramBot = require("node-telegram-bot-api");
 
 // const token = await axios.get('http://localhost:8000/bot');
 
-const server_url = "http://localhost:8000";
+const server_url = "https://telegram-weather-bot-bntq.vercel.app";
 
 const getTelegramBotToken = async () => {
   try {

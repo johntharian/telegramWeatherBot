@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Typography from "@mui/material/Typography";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -20,11 +20,12 @@ const authenticateToken = async (token) => {
 };
 
 const updateToken = async (token) => {
-  const res = await axios.put(`http://localhost:8000/bot/${token}`);
+  // const res = await axios.put(`http://localhost:8000/bot/${token}`);https://telegram-weather-bot-bntq.vercel.app/user
+  const res = await axios.put(
+    `https://telegram-weather-bot-bntq.vercel.app/bot${token}`
+  );
   console.log(res);
 };
-
-
 
 const ManageBotSettings = () => {
   const [telgramBotToken, setTelegramBotToken] = useState("");
@@ -40,24 +41,26 @@ const ManageBotSettings = () => {
         console.log("Bot information:", res);
         await updateToken(telgramBotToken);
         console.log("Restart bot server for changes to be applied");
-        window.alert('Bot token updated. Please restart the bot server for changes to take effect.');
+        window.alert(
+          "Bot token updated. Please restart the bot server for changes to take effect."
+        );
       }
     } else {
       console.log(
         "telegram bot token is invalid, generate a new token and try again"
       );
-      window.alert('Invalid telegram bot token. Please generate a new token and try again.');
-      return(
-        <Alert severity="error">Enter valid api token</Alert>
-      )
+      window.alert(
+        "Invalid telegram bot token. Please generate a new token and try again."
+      );
+      return <Alert severity="error">Enter valid api token</Alert>;
     }
   };
 
   return (
     <div>
       <Typography variant="h6" gutterBottom>
-          Manage the bot 
-        </Typography>
+        Manage the bot
+      </Typography>
       <form onSubmit={handleSubmit}>
         <Stack direction="row" spacing={2}>
           <TextField
