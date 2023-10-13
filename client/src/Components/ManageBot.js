@@ -20,8 +20,14 @@ const authenticateToken = async (token) => {
 };
 
 const updateToken = async (token) => {
+<<<<<<< HEAD
   const res = await axios.put(
     `https://botserver-production.up.railway.app/bot/${token}`
+=======
+  // const res = await axios.put(`http://localhost:8000/bot/${token}`);https://telegram-weather-bot-bntq.vercel.app/user
+  const res = await axios.put(
+    `https://telegram-weather-bot-bntq.vercel.app/bot${token}`
+>>>>>>> 0610aab56ed0f9e707fba03583bf278917167a30
   );
   console.log(res);
 };
