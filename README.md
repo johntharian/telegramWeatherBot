@@ -5,7 +5,7 @@
 A telegram bot that allows users to subscribe for getting daily update on weather and an admin panel with google login for updating bot settings(api keys etc) and managing user accounts(blocking/deleting etc).
 
 ## Demonstration
-Watch the demo here
+### Watch the demo here [https://www.youtube.com/watch?v=fixwSRjhzN8](https://www.youtube.com/watch?v=fixwSRjhzN8)
 [![Demo](https://img.youtube.com/vi/fixwSRjhzN8/0.jpg)](https://www.youtube.com/watch?v=fixwSRjhzN8)
 
 
