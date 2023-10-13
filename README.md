@@ -4,6 +4,10 @@
 
 A telegram bot that allows users to subscribe for getting daily update on weather and an admin panel with google login for updating bot settings(api keys etc) and managing user accounts(blocking/deleting etc).
 
+## Demonstration
+Watch the demo here
+[![Demo](https://img.youtube.com/vi/fixwSRjhzN8/0.jpg)](https://www.youtube.com/watch?v=fixwSRjhzN8)
+
 
 ## Setup
 
@@ -60,6 +64,6 @@ The admin panel is available at [Admin Panel](https://bot-client-rho.vercel.app/
 
 ## Stay in touch
 
-- Author - [John Tharian](jtharian13@gmail.com)
+- Author - jtharian13@gmail.com
 
 
