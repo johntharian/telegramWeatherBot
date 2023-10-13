@@ -3,7 +3,7 @@ const TelegramBot = require("node-telegram-bot-api");
 
 // const token = await axios.get('http://localhost:8000/bot');
 
-const server_url = "http://localhost:8000";
+const server_url = "https://botserver-production.up.railway.app";
 
 const getTelegramBotToken = async () => {
   try {
@@ -107,12 +107,9 @@ getTelegramBotToken().then((token) => {
 
   setInterval(() => {
     var weatherUpdate = "Today's weather: Sunny and 25°C. Enjoy your day!";
-    console.log("here",subscribers)
     for (const user of subscribers) {
-      console.log("user",user)
       if (user[1] === "Active") {
         var chatId = user[0];
-        console.log("hey",chatId)
         axios
           .get(
             `http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=${openWeatherMapApiKey}`
@@ -131,9 +128,8 @@ getTelegramBotToken().then((token) => {
             bot.sendMessage(chatId, weatherUpdate);
           });
       }
-
     }
     subscribers = new Set();
     getSubscriber();
-  }, 60 * 100);
+  }, 60 * 500);
 });
