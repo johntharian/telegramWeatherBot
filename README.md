@@ -2,26 +2,41 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A telegram bot that allows users to subscribe for getting daily update on weather and an admin panel with google login for updating bot settings(api keys etc) and managing user accounts(blocking/deleting etc).
+
+
+## Setup
+
+Nest.js has been used for the backend.
+React has been used for the frontend.
+Node.js has been used for the telegram bot.
 
 ## Installation
 
 ```bash
+# clone the repository
+$ git clone https://github.com/johntharian/telegramWeatherBot.git
+# change directory
+$ cd telegramWeatherBot
+# install dependencies for running telegram bot
 $ npm install
 ```
 
 ## Running the app
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# start bot
+$ node bot.js
 ```
+
+This should start the telegram bot.
+
+## Bot Commands
+
+- /start - starts the telegram bot 
+- /subscribe - subscribe to weather updates
+- /unsubscribe - unsubscribe from weather updates
+
 
 ## Test
 
@@ -36,16 +51,13 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Admin Panel 
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+The admin panel has been created and deployed using vercel and railway.
+The admin panel is available at [Admin Panel](https://bot-client-rho.vercel.app/)
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [John Tharian](jtharian13@gmail.com)
 
-## License
 
-Nest is [MIT licensed](LICENSE).
