@@ -31,6 +31,8 @@ $ node bot.js
 
 This should start the telegram bot.
 
+The bot url is [weatherBot](https://t.me/hospals_weather_bot)
+
 ## Bot Commands
 
 - /start - starts the telegram bot 
